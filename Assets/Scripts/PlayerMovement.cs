@@ -12,14 +12,6 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if (IsServer && IsLocalPlayer && IsOwner)
-        {
-            NetworkObject.InstantiateAndSpawn(chatPrefab, NetworkManager);
-        }
-        //if (IsLocalPlayer)
-        //{
-        //    FindObjectOfType<ChatUI>().InitializeChatUI();
-        //}
     } 
         
     private void Update()
@@ -38,8 +30,7 @@ public class PlayerMovement : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void MoveTankRpc(float horizontal, float vertical)
     {
-        tankRigidbody.velocity = (transform.forward * vertical * Time.fixedDeltaTime * movingSpeed);
-        //transform.Rotate(transform.up * horizontal * Time.deltaTime * rotationspeed);
+        tankRigidbody.velocity = (transform.forward * Time.fixedDeltaTime * movingSpeed * vertical);
 
         tankRigidbody.rotation = Quaternion.Euler(transform.eulerAngles + transform.up * horizontal * rotationspeed * Time.fixedDeltaTime);
     }

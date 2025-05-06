@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 2405095471902366746}
   - component: {fileID: -6107046019250457581}
   - component: {fileID: 4084938871159136950}
+  - component: {fileID: 6498417585183037557}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 1646811704
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 429175002
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -433,6 +434,27 @@ MonoBehaviour:
         byte0027: 0
         byte0028: 0
         byte0029: 0
+--- !u!114 &6498417585183037557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708175284520391657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc99ac2de5f05e94095d70ec58be0b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankRenderer: {fileID: 3730083614513015225}
+  tankMaterials:
+  - {fileID: 2100000, guid: 8045aea2dd4caba4b855ce88c46dae47, type: 2}
+  - {fileID: 2100000, guid: 6acbc519538382f4da836445c2eb2ea2, type: 2}
+  - {fileID: 2100000, guid: bfd1b9629046a8a4c8ed91e42e09b4c7, type: 2}
+  - {fileID: 2100000, guid: a144ca2fd121a1d4da476c9df41fedbc, type: 2}
+  dropdownValue: {fileID: 0}
+  selectedColorIndex:
+    m_InternalValue: 0
 --- !u!1 &7705473852544140771
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +741,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5f6bca0ad11cc49d7b994095c6dbec11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5de01de196d684607889303c4340c2c4, type: 2}
     - target: {fileID: 919132149155446097, guid: 5f6bca0ad11cc49d7b994095c6dbec11,
         type: 3}
       propertyPath: m_Name
@@ -771,3 +798,9 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.029365227, y: 0.044599924, z: 0.026628174}
   m_Center: {x: 0, y: -0.0047454415, z: 0.0073344754}
+--- !u!23 &3730083614513015225 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5f6bca0ad11cc49d7b994095c6dbec11,
+    type: 3}
+  m_PrefabInstance: {fileID: 2594775874698949949}
+  m_PrefabAsset: {fileID: 0}

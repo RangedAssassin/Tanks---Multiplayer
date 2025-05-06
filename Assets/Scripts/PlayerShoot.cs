@@ -7,6 +7,11 @@ public class PlayerShoot : NetworkBehaviour
     [SerializeField] private Transform weaponTip;
     //[SerializeField] private int bulletSpeed = 500;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+    }
     private void Update()
     {
         if (IsOwner)
@@ -33,7 +38,7 @@ public class PlayerShoot : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void SpawnBulletRpc(RpcParams param = default)
     {
-        Debug.Log(param.Receive.SenderClientId);
+        //Debug.Log(param.Receive.SenderClientId);
 
         BulletScript bulletClone = Instantiate(bulletPrefab, weaponTip.position, weaponTip.rotation);
         bulletClone.NetworkObject.Spawn();

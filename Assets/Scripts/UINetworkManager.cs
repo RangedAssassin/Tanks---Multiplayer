@@ -13,30 +13,23 @@ public class UINetworkManager : MonoBehaviour
     public TMP_InputField nicknameInputField;
     public TMP_InputField joinCodeInputField;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void BtnClick_StartHost()
     {
-        Debug.Log("Starting Host");
+        Debug.Log("Starting Host....");
 
         StartHostWithRelay(10, "udp");
     }
 
     public void BtnClick_StartClient()
     {
-        Debug.Log("Starting Client");
+        if (joinCodeInputField.text == "")
+        {
+            Debug.Log("Join code is empty");
+            return;
+        }
 
-        StartClientWithRelay("0", "udp");
+        Debug.Log("Starting Client....");
+        StartClientWithRelay(joinCodeInputField.text, "udp");
     }
 
     public async Task<string> StartHostWithRelay(int maxConnections, string connectionType)
@@ -46,6 +39,7 @@ public class UINetworkManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+        
         var allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, connectionType));
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
@@ -65,14 +59,15 @@ public class UINetworkManager : MonoBehaviour
 
     public async Task<bool> StartClientWithRelay(string joinCode, string connectionType)
     {
-        await UnityServices.InitializeAsync();
-        
+        await UnityServices.InitializeAsync();        
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
+        
         var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, connectionType));
+        
         if (NetworkManager.Singleton.StartClient())
         {
             joinCodeInputField.gameObject.SetActive(false);

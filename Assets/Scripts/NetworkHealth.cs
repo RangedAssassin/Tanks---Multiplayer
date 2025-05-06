@@ -7,7 +7,8 @@ public class NetworkHealth : NetworkBehaviour
     [SerializeField] private int defaultHealth = 3;
     [SerializeField] private NetworkObject deathEffects;
 
-    public NetworkVariable<int> health = new NetworkVariable<int>(readPerm: NetworkVariableReadPermission.Everyone,
+    public NetworkVariable<int> health = new NetworkVariable<int>(
+        readPerm: NetworkVariableReadPermission.Everyone,
         writePerm: NetworkVariableWritePermission.Server);
 
     public override void OnNetworkSpawn()
@@ -39,18 +40,22 @@ public class NetworkHealth : NetworkBehaviour
     {
         health.Value--;
 
+        Debug.Log(damageOrigin + " Shot " + OwnerClientId);
 
         if (health.Value <= 0)
         {
             //Die();
-            FindObjectOfType<NetworkGameManager>().RespawnPlayer(NetworkObject);
+            NetworkObject effect = Instantiate(
+                deathEffects,
+                transform.position + Vector3.up,
+                Quaternion.identity);
 
-            NetworkObject effect = Instantiate(deathEffects, transform.position + Vector3.up, Quaternion.identity);
             effect.Spawn();
             Destroy(effect.gameObject, 3f);
 
+            FindObjectOfType<NetworkGameManager>().RespawnPlayer(NetworkObject);
         }
-        Debug.Log(damageOrigin + " Shot " + OwnerClientId);
+        
             
     }
 

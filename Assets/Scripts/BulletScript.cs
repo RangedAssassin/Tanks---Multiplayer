@@ -36,8 +36,12 @@ public class BulletScript : NetworkBehaviour
 
                 if (possibleNetworkObject)
                 {
-                    possibleNetworkObject.DealDamage(originID);
-                    ShowKillFeedRpc(originID, possibleNetworkObject.OwnerClientId);
+                    if (originID != possibleNetworkObject.OwnerClientId)
+                    {
+                        possibleNetworkObject.DealDamage(originID);
+                    }
+                
+                    //ShowKillFeedRpc(originID, possibleNetworkObject.OwnerClientId);
                 }
             }
             //Debug.Log(originID + " Shot " + collision.body.GetComponent<NetworkObject>().OwnerClientId);
